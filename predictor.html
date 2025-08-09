@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Funny Future Predictor</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 25px;
+      background-color: #fefefe;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input, button, select {
+      width: 80%;
+      max-width: 320px;
+      font-size: 17px;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007acc;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #222;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Funny Future Predictor 🎉</h1>
+
+  <input type="text" id="name" placeholder="Enter your name" />
+  <br />
+  <input type="date" id="dob" />
+  <br />
+  <select id="gender">
+    <option value="" disabled selected>Select your gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  <br />
+  <button id="predictBtn">Predict My Future!</button>
+
+  <div id="result"></div>
+
+  <script>
+    const wives = [
+      "Anjali", "Pooja", "Sita", "Neha", "Kavya",
+      "Meera", "Riya", "Sneha", "Divya", "Asha"
+    ];
+    const husbands = [
+      "Ravi", "Amit", "Suresh", "Karan", "Rajesh",
+      "Vikram", "Arjun", "Manoj", "Deepak", "Rahul"
+    ];
+    const jobs = [
+      "YouTuber", "Astronaut", "Pizza Delivery Boss",
+      "Tech Entrepreneur", "Superhero", "Professional Sleeper",
+      "Secret Agent", "Chef Extraordinaire", "Travel Blogger",
+      "Robot Programmer"
+    ];
+
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    document.getElementById('predictBtn').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const dobValue = document.getElementById('dob').value;
+      const gender = document.getElementById('gender').value;
+      const resultDiv = document.getElementById('result');
+
+      if (!name) {
+        resultDiv.textContent = "Please enter your name!";
+        return;
+      }
+      if (!dobValue) {
+        resultDiv.textContent = "Please enter your date of birth!";
+        return;
+      }
+      if (!gender) {
+        resultDiv.textContent = "Please select your gender!";
+        return;
+      }
+
+      const dob = new Date(dobValue);
+      const day = dob.getDate();
+      const month = dob.getMonth() + 1;
+
+      const numChildren = ((day + month) % 5) + 1;
+      const jobName = randomItem(jobs);
+      let partnerName = "";
+
+      if (gender === "male") {
+        partnerName = randomItem(wives);
+      } else if (gender === "female") {
+        partnerName = randomItem(husbands);
+      }
+
+      const partnerTitle = (gender === "male") ? "wife" : "husband";
+
+      const message =
+`Hello ${name}!
+
+In your future:
+
+- Your ${partnerTitle}'s name will be ${partnerName}.
+- You will have ${numChildren} children.
+- Your job will be: ${jobName}.
+
+Good luck with that! 😄`;
+
+      resultDiv.textContent = message;
+    });
+  </script>
+
+</body>
+</html>
